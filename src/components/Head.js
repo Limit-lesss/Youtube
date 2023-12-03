@@ -3,6 +3,7 @@ import YoutubeLogo from "../assets/pngwing.com.png";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleMenu } from "../utils/appSlice";
 import ShowMenu from "./FullMinuList";
+import { Link } from "react-router-dom";
 const Head = () => {
   const [searchText, setSearchText] = useState("");
   // const [showFullSideBar, setShowFullSideBar] = useState(false);
@@ -20,10 +21,10 @@ const Head = () => {
   const handleToggleMenu = () => {
     dispatch(toggleMenu());
   };
-  const isMenuOpen = useSelector(store => store.App.isMenuOpen);
+  const isMenuOpen = useSelector((store) => store.App.isMenuOpen);
   return (
     <div>
-      <ShowMenu/>
+      <ShowMenu />
       {isMenuOpen ? disableScroll() : enableScroll()}
       <div className="border py-3  flex justify-between fixed w-screen bg-white z-10 ">
         <div className="flex w-1/5  ml-1 items-center ">
@@ -37,13 +38,15 @@ const Head = () => {
               alt="menu"
             />
           </span>
-          <img
-            src={YoutubeLogo}
-            alt="youtube"
-            width="120"
-            height={"120"}
-            className="ml-2"
-          />
+          <Link to={"/"}>
+            <img
+              src={YoutubeLogo}
+              alt="youtube"
+              width="120"
+              height={"120"}
+              className="ml-2"
+            />
+          </Link>
         </div>
         <div className="w-3/5  flex  justify-center">
           <div className="relative w-8/12">

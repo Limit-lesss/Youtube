@@ -4,13 +4,17 @@ const appSlice = createSlice({
   name: "App",
   initialState: {
     isMenuOpen: false,
+    isShowSideBar: true,
   },
   reducers: {
-    toggleMenu: (store, action) => {
+    toggleMenu: (store) => {
       store.isMenuOpen = !store.isMenuOpen;
+    },
+    showSidebar: (store, action) => {
+      store.isShowSideBar = action.payload;
     },
   },
 });
 
-export const {toggleMenu} = appSlice.actions;
-export default appSlice.reducer ;
+export const { toggleMenu, showSidebar } = appSlice.actions;
+export default appSlice.reducer;

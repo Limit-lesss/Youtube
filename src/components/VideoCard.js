@@ -2,7 +2,6 @@ import React from "react";
 
 const VideoCard = ({ snippet, statistics }) => {
   const viewCount = statistics?.viewCount;
-  console.log(viewCount?.length);
   let views;
   if (viewCount?.length > 7) {
     views = Math.round(parseInt(viewCount) / 1000000);
