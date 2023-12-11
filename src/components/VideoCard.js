@@ -1,4 +1,5 @@
 import React from "react";
+import useVideo from "../utils/useVideo";
 
 const VideoCard = ({ snippet, statistics }) => {
   const viewCount = statistics?.viewCount;
@@ -11,13 +12,13 @@ const VideoCard = ({ snippet, statistics }) => {
     views += "M";
   } else {
     views = (parseInt(viewCount) / 1000).toFixed(1);
-    views += "K"
+    views += "K";
   }
   return (
     <div className=" my-3 rounded-lg p-2 cursor-pointer">
       <div>
         <img
-          src={snippet?.thumbnails?.maxres?.url}
+          src={snippet?.thumbnails?.maxres?.url || snippet?.thumbnails?.medium?.url}
           alt="video"
           className="rounded-md"
         />
@@ -41,5 +42,14 @@ const VideoCard = ({ snippet, statistics }) => {
     </div>
   );
 };
-
+export const AdVideoCard = () => {
+  const data = useVideo();
+  return (
+    data[0] && (
+      <div className="p-0 border border-red-900">
+        <VideoCard {...data[0]} />
+      </div>
+    )
+  );
+};
 export default VideoCard;

@@ -45,7 +45,7 @@ const ButtonList = () => {
           </span>
         </div>
       )}
-      <div className="flex  mt-5  overflow-hidden" ref={elementRef}>
+      <div className="flex mt-5  overflow-hidden" ref={elementRef}>
         {BUTTON_LIST?.map((e, index) => (
           <button className="h-10 whitespace-nowrap px-4 mx-2 bg-slate-200 rounded-md" key={index}>
             {e}

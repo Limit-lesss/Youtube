@@ -5,6 +5,7 @@ const appSlice = createSlice({
   initialState: {
     isMenuOpen: false,
     isShowSideBar: true,
+    like: 0,
   },
   reducers: {
     toggleMenu: (store) => {
@@ -13,8 +14,11 @@ const appSlice = createSlice({
     showSidebar: (store, action) => {
       store.isShowSideBar = action.payload;
     },
+    increaseLike: (store) => {
+      store.like = store.like + 1;
+    }
   },
 });
 
-export const { toggleMenu, showSidebar } = appSlice.actions;
+export const { toggleMenu, showSidebar, increaseLike } = appSlice.actions;
 export default appSlice.reducer;

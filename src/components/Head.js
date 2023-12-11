@@ -1,12 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import YoutubeLogo from "../assets/pngwing.com.png";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleMenu } from "../utils/appSlice";
 import ShowMenu from "./FullMinuList";
 import { Link } from "react-router-dom";
+import { YOUTUBE_SEARCH_API } from "../utils/constants";
+import { cachesResults } from "../utils/searchSlice";
+// import useSuggestion from "../utils/useSuggestion";
+
 const Head = () => {
   const [searchText, setSearchText] = useState("");
-  // const [showFullSideBar, setShowFullSideBar] = useState(false);
+  const [suggData, setSuggData] = useState([]);
+  const [showSugg, setShowSugg] = useState(false);
   function disableScroll() {
     const scrollLeft = document.documentElement.scrollLeft;
     const scrollTop = document.documentElement.scrollTop;
@@ -21,6 +26,23 @@ const Head = () => {
   const handleToggleMenu = () => {
     dispatch(toggleMenu());
   };
+  const searchCache = useSelector((store) => store.search);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (searchCache[searchText]) setSuggData(searchCache[searchText]);
+      else getData(searchText);
+    }, 200);
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [searchText]);
+
+  async function getData(text) {
+    const response = await fetch(YOUTUBE_SEARCH_API + text);
+    const data = await response.json();
+    dispatch(cachesResults({[searchText] : data[1]}))
+    setSuggData(data[1]);
+  }
   const isMenuOpen = useSelector((store) => store.App.isMenuOpen);
   return (
     <div>
@@ -53,19 +75,48 @@ const Head = () => {
             <input
               type="text"
               placeholder="Search"
-              className="h-11 w-full rounded-l-full border border-slate-300 px-5 pr-9 text-lg outline-1 outline-blue-400"
+              className="h-11 w-full rounded-l-full border border-slate-300 px-5 pr-9 text-lg outline-1 outline-blue-400 group "
               value={searchText}
-              onChange={(e) => setSearchText(e.target.value)}
+              onChange={(e) => {
+                setSearchText(e.target.value);
+              }}
+              onFocus={(e) => setShowSugg(true)}
+              onBlur={(e) => setShowSugg(false)}
             />
+            {showSugg && suggData?.length != 0 && (
+              <div className="w-full bg-white shadow-2xl border absolute top-12 rounded-lg py-3 text-lg font-medium">
+                {suggData?.map((e, index) => (
+                  <div
+                    key={index}
+                    className="flex items-center w-full hover:bg-slate-300 py-1 cursor-default"
+                    onMouseDown={(event) => {
+                      // event.preventDefault();
+                      setSearchText(e);
+                    }}>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      enableBackground="new 0 0 24 24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      width="24"
+                      focusable="false"
+                      className="ml-4">
+                      <path d="m20.87 20.17-5.59-5.59C16.35 13.35 17 11.75 17 10c0-3.87-3.13-7-7-7s-7 3.13-7 7 3.13 7 7 7c1.75 0 3.35-.65 4.58-1.71l5.59 5.59.7-.71zM10 16c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6z"></path>
+                    </svg>
+                    <p className="pl-3 w-full">{e}</p>
+                  </div>
+                ))}
+              </div>
+            )}
             {searchText.length > 0 && (
               <span
-                className="absolute top-0 right-0 text-3xl font-light hover:bg-slate-400 rounded-full w-11 h-11 flex justify-center items-center hover:bg-opacity-60 cursor-pointer text-slate-600"
+                className="absolute top-0 right-0 text-xl font-semibold hover:bg-slate-400 rounded-full w-11 h-11 flex justify-center items-center hover:bg-opacity-50 cursor-pointer text-slate-600"
                 onClick={(e) => setSearchText("")}>
                 X
               </span>
             )}
           </div>
-          <span className=" w-20 bg-slate-300  rounded-r-full h-11 flex justify-center items-center">
+          <span className=" w-20 bg-slate-300  rounded-r-full h-11 flex justify-center items-center cursor-pointer">
             <img
               width="25"
               height="20"
