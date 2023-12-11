@@ -116,7 +116,7 @@ const Comments = ({ name, text, replies }) => {
   //   dispatch(increaseLike());
   // };
   const [like, setLike] = useState(0);
-  const [showComment, setShowComment] = useState(false);
+  const [showComment, setShowComment] = useState(true);
   const handleLike = () => {
     setLike(like + 1);
   };
@@ -172,8 +172,8 @@ const Comments = ({ name, text, replies }) => {
               ? "ml-4 pl-4 border-l border-dotted border-l-slate-400"
               : ""
           }>
-          {replies?.map((e) => (
-            <Comments {...e} />
+          {replies?.map((e,index) => (
+            <Comments {...e} key={index}/>
           ))}
         </div>
       )}
@@ -200,15 +200,14 @@ const WatchPage = () => {
           height="500"
           src={"https://www.youtube.com/embed/" + params}
           title="YouTube video player"
-          frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share;"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"
           allowFullScreen="allowFullScreen"
           className="rounded-2xl"></iframe>
       </div>
       <div className="mt-5 pb-5">
         <h1 className="text-xl font-medium ">Comments:</h1>
-        {commentData?.map((e) => (
-          <Comments {...e} />
+        {commentData?.map((e,index) => (
+          <Comments {...e} key={index}/>
         ))}
       </div>
     </div>
