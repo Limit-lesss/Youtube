@@ -60,7 +60,7 @@ const Head = () => {
               alt="menu"
             />
           </span>
-          <Link to={"/"} >
+          <Link to={"/Youtube"} >
             <img
               src={YoutubeLogo}
               alt="youtube"

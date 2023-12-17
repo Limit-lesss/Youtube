@@ -10,7 +10,7 @@ const VideoContainer = () => {
     <div className="grid grid-cols-4 pt-20 gap-2  pr-5">
       {/* <AdVideoCard/> */}
       {data?.map((e) => (
-        <Link to={"/watch?v=" + e?.id} key={e.id}>
+        <Link to={"/Youtube/watch?v=" + e?.id} key={e.id}>
           <VideoCard {...e} />
         </Link>
       ))}

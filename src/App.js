@@ -26,15 +26,15 @@ function App() {
 
 export const appRouter = createBrowserRouter([
   {
-    path: "/",
+    path: "/Youtube",
     element: <App />,
     children: [
       {
-        path: "/",
+        path: "/Youtube",
         element: <Body />,
       },
       {
-        path: "/watch",
+        path: "/Youtube/watch",
         element: (
           <Suspense
             fallback={
