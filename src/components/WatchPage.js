@@ -2,111 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { increaseLike, showSidebar } from "../utils/appSlice";
 import { useSearchParams } from "react-router-dom";
+import { commentData } from "../utils/constants";
 
-const commentData = [
-  {
-    name: "Genius",
-    text: "Hello dear how r u",
-    replies: [
-      {
-        name: "Genius",
-        text: "Hello dear how r u",
-        replies: [],
-      },
-      {
-        name: "Genius",
-        text: "Hello dear how r u",
-        replies: [
-          {
-            name: "Genius",
-            text: "Hello dear how r u",
-            replies: [
-              {
-                name: "Genius",
-                text: "Hello dear how r u",
-                replies: [],
-              },
-              {
-                name: "Genius",
-                text: "Hello dear how r u",
-                replies: [
-                  {
-                    name: "Genius",
-                    text: "Hello dear how r u",
-                    replies: [],
-                  },
-                  {
-                    name: "Genius",
-                    text: "Hello dear how r u",
-                    replies: [
-                      {
-                        name: "Genius",
-                        text: "Hello dear how r u",
-                        replies: [],
-                      },
-                      {
-                        name: "Genius",
-                        text: "Hello dear how r u",
-                        replies: [],
-                      },
-                      {
-                        name: "Genius",
-                        text: "Hello dear how r u",
-                        replies: [
-                          {
-                            name: "Genius",
-                            text: "Hello dear how r u",
-                            replies: [],
-                          },
-                        ],
-                      },
-                    ],
-                  },
-                ],
-              },
-            ],
-          },
-        ],
-      },
-    ],
-  },
-  {
-    name: "Genius",
-    text: "Hello dear how r u",
-    replies: [],
-  },
-  {
-    name: "Genius",
-    text: "Hello dear how r u",
-    replies: [],
-  },
-  {
-    name: "Genius",
-    text: "Hello dear how r u",
-    replies: [],
-  },
-  {
-    name: "Genius",
-    text: "Hello dear how r u",
-    replies: [
-      {
-        name: "Genius",
-        text: "Hello dear how r u?",
-        replies: [],
-      },
-      {
-        name: "Genius",
-        text: "Hello dear how r u?",
-        replies: [],
-      },
-    ],
-  },
-  {
-    name: "Genius",
-    text: "Hello dear how r u",
-    replies: [],
-  },
-];
+
 
 const Comments = ({ name, text, replies }) => {
   // const { name, text, replies } = data;
@@ -172,8 +70,8 @@ const Comments = ({ name, text, replies }) => {
               ? "ml-4 pl-4 border-l border-dotted border-l-slate-400"
               : ""
           }>
-          {replies?.map((e,index) => (
-            <Comments {...e} key={index}/>
+          {replies?.map((e, index) => (
+            <Comments {...e} key={index} />
           ))}
         </div>
       )}
@@ -185,29 +83,35 @@ const WatchPage = () => {
   const [searchParams] = useSearchParams();
   const params = searchParams.get("v");
   // console.log(searchParams.get("v"));
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
+  // useEffect(() => {
+  //   dispatch(showSidebar(false));
+  //   window.scrollTo(0,0);
+  //   return () => {
+  //     dispatch(showSidebar(true));
+  //   };
+  // }, []);
   useEffect(() => {
-    dispatch(showSidebar(false));
-    return () => {
-      dispatch(showSidebar(true));
-    };
+    window.scrollTo(0, 0);
   }, []);
   return (
     <div className="flex flex-col pl-8">
       <div className="pt-20 ">
-        <iframe
-          width="900"
-          height="500"
-          src={"https://www.youtube.com/embed/" + params}
-          title="YouTube video player"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"
-          allowFullScreen="allowFullScreen"
-          className="rounded-2xl"></iframe>
+        {
+          <iframe
+            width="900"
+            height="500"
+            src={"https://www.youtube.com/embed/" + params + "?autoplay=1"}
+            title="YouTube video player"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"
+            allowFullScreen="allowFullScreen"
+            className="rounded-2xl"></iframe>
+        }
       </div>
       <div className="mt-5 pb-5">
         <h1 className="text-xl font-medium ">Comments:</h1>
-        {commentData?.map((e,index) => (
-          <Comments {...e} key={index}/>
+        {commentData?.map((e, index) => (
+          <Comments {...e} key={index} />
         ))}
       </div>
     </div>

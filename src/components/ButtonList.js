@@ -28,7 +28,7 @@ const ButtonList = () => {
     }, speed);
   }
   return (
-    <div className="h-20 bg-white  fixed -mt-2 w-11/12 pr-20 ">
+    <div className="h-20 bg-white  fixed -mt-2 w-11/12 pr-20 z-10">
       {leftArrowDisable && (
         <div className="w-14 h-14 backdrop-blur-3xl absolute top-3 shadow-[10px_-18px_10px_20px_#ffffff] bg-white  hover:cursor-pointer">
           <span

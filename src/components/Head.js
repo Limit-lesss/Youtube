@@ -40,7 +40,7 @@ const Head = () => {
   async function getData(text) {
     const response = await fetch(YOUTUBE_SEARCH_API + text);
     const data = await response.json();
-    dispatch(cachesResults({[searchText] : data[1]}))
+    dispatch(cachesResults({ [searchText]: data[1] }));
     setSuggData(data[1]);
   }
   const isMenuOpen = useSelector((store) => store.App.isMenuOpen);
@@ -48,7 +48,7 @@ const Head = () => {
     <div>
       <ShowMenu />
       {isMenuOpen ? disableScroll() : enableScroll()}
-      <div className="border py-3  flex justify-between fixed w-screen bg-white z-10 ">
+      <div className="border py-3  flex justify-between fixed w-screen bg-white z-20 ">
         <div className="flex w-1/5  ml-1 items-center ">
           <span
             className="hover:bg-slate-300 w-12 h-12 rounded-full mx-4 flex items-center justify-center hover:cursor-pointer"
@@ -60,13 +60,14 @@ const Head = () => {
               alt="menu"
             />
           </span>
-          <Link to={"/"}>
+          <Link to={"/"} >
             <img
               src={YoutubeLogo}
               alt="youtube"
               width="120"
               height={"120"}
               className="ml-2"
+              onClick={() => window.scrollTo(0, 0)}
             />
           </Link>
         </div>
@@ -90,7 +91,7 @@ const Head = () => {
                     key={index}
                     className="flex items-center w-full hover:bg-slate-300 py-1 cursor-default"
                     onMouseDown={(event) => {
-                      // event.preventDefault();
+                      event.preventDefault();
                       setSearchText(e);
                     }}>
                     <svg

@@ -390,7 +390,7 @@ const ShowMenu = () => {
     <div
       className={
         isMenuOpen
-          ? "h-full fixed  w-full bg-slate-300 bg-opacity-50 z-20 flex"
+          ? "h-full fixed  w-full bg-slate-300 bg-opacity-50 z-30 flex"
           : "transform -translate-x-96 absolute "
       }>
       <div

@@ -1,17 +1,29 @@
-import React, { useState } from "react";
+import React, { Suspense, lazy, useState } from "react";
 import Head from "./components/Head";
 import Body from "./components/Body";
-import { createBrowserRouter, Outlet } from "react-router-dom";
-import Watch from "./components/WatchPage";
+import {
+  createBrowserRouter,
+  Outlet,
+  ScrollRestoration,
+} from "react-router-dom";
+// import Watch from "./components/WatchPage";
 import MainContainer from "./components/MainContainer";
+const Watch = lazy(() => import("./components/WatchPage"));
+
 function App() {
   return (
     <div>
+      <ScrollRestoration
+        getKey={(location) => {
+          return location.pathname;
+        }}
+      />
       <Head />
       <Outlet />
     </div>
   );
 }
+
 export const appRouter = createBrowserRouter([
   {
     path: "/",
@@ -20,16 +32,17 @@ export const appRouter = createBrowserRouter([
       {
         path: "/",
         element: <Body />,
-        children: [
-          {
-            path: "/",
-            element: <MainContainer />,
-          },
-          {
-            path: "/watch",
-            element: <Watch />,
-          },
-        ],
+      },
+      {
+        path: "/watch",
+        element: (
+          <Suspense
+            fallback={
+              <div className="w-[900px] h-[500px] bg-slate-900 rounded-2xl ml-8 absolute top-20"></div>
+            }>
+            <Watch />
+          </Suspense>
+        ),
       },
     ],
   },

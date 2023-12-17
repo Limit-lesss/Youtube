@@ -3,7 +3,9 @@ import React from "react";
 const MenuList = () => {
   return (
     <div className="w-24  fixed h-screen text-center text-xs">
-      <div className="flex-col items-center p-2.5 my-2 h-16 w-full hover:cursor-pointer hover:bg-slate-200">
+      <div
+        className="flex-col items-center p-2.5 my-2 h-16 w-full hover:cursor-pointer hover:bg-slate-200"
+        onClick={() => window.scrollTo(0, 0)}>
         <span className="flex justify-center">
           <svg
             xmlns="http://www.w3.org/2000/svg"

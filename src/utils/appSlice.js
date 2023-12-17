@@ -4,21 +4,21 @@ const appSlice = createSlice({
   name: "App",
   initialState: {
     isMenuOpen: false,
-    isShowSideBar: true,
+    // isShowSideBar: true,
     like: 0,
   },
   reducers: {
     toggleMenu: (store) => {
       store.isMenuOpen = !store.isMenuOpen;
     },
-    showSidebar: (store, action) => {
-      store.isShowSideBar = action.payload;
-    },
+    // showSidebar: (store, action) => {
+    //   store.isShowSideBar = action.payload;
+    // },
     increaseLike: (store) => {
       store.like = store.like + 1;
-    }
+    },
   },
 });
 
-export const { toggleMenu, showSidebar, increaseLike } = appSlice.actions;
+export const { toggleMenu, increaseLike } = appSlice.actions;
 export default appSlice.reducer;
