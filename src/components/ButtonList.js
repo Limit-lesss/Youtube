@@ -30,16 +30,16 @@ const ButtonList = () => {
   return (
     <div className="h-20 bg-white  fixed -mt-2 w-11/12 pr-20 z-10">
       {leftArrowDisable && (
-        <div className="w-14 h-14 backdrop-blur-3xl absolute top-3 shadow-[10px_-18px_10px_20px_#ffffff] bg-white  hover:cursor-pointer">
+        <div className="w-14 h-14 backdrop-blur-3xl absolute top-3 shadow-[10px_-18px_10px_20px_#ffffff] bg-white ">
           <span
-            className=" w-14 h-14 hover:bg-slate-300 rounded-full flex justify-center items-center hover:cursor-pointer "
+            className=" w-12 h-12 hover:bg-slate-300 rounded-full flex justify-center items-center hover:cursor-pointer "
             onClick={(e) =>
               handleHorizantalScroll(elementRef.current, 10, 360, -40)
             }>
             <img
               width="24"
               height="24"
-              src="https://img.icons8.com/material-outlined/24/less-than.png"
+              src="https://img.icons8.com/fluency-systems-filled/48/less-than.png"
               alt="less-than"
             />
           </span>
@@ -53,16 +53,16 @@ const ButtonList = () => {
         ))}
       </div>
       {rightArrowDisable && (
-        <div className="w-14 h-14 backdrop-blur-3xl absolute top-3 right-4 shadow-[-10px_-18px_10px_20px_#ffffff] bg-white  hover:cursor-pointer">
+        <div className="w-14 h-14 backdrop-blur-3xl absolute top-3 right-4 shadow-[-10px_-18px_10px_20px_#ffffff] bg-white ">
           <span
-            className="w-14 h-14 hover:bg-slate-300 rounded-full flex justify-center items-center hover:cursor-pointer "
+            className="w-12 h-12 hover:bg-slate-300 rounded-full flex justify-center items-center hover:cursor-pointer "
             onClick={(e) =>
               handleHorizantalScroll(elementRef.current, 10, 360, 40)
             }>
             <img
               width="24"
               height="24"
-              src="https://img.icons8.com/material-outlined/24/more-than.png"
+              src="https://img.icons8.com/fluency-systems-filled/48/more-than.png"
               alt="less-than"
             />
           </span>

@@ -3,8 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { increaseLike, showSidebar } from "../utils/appSlice";
 import { useSearchParams } from "react-router-dom";
 import { commentData } from "../utils/constants";
-
-
+import LiveComment from "./LiveComment";
 
 const Comments = ({ name, text, replies }) => {
   // const { name, text, replies } = data;
@@ -96,17 +95,23 @@ const WatchPage = () => {
   }, []);
   return (
     <div className="flex flex-col pl-8">
-      <div className="pt-20 ">
-        {
-          <iframe
-            width="900"
-            height="500"
-            src={"https://www.youtube.com/embed/" + params + "?autoplay=1"}
-            title="YouTube video player"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"
-            allowFullScreen="allowFullScreen"
-            className="rounded-2xl"></iframe>
-        }
+      <div className="pt-20 flex">
+        <div>
+          {
+            <iframe
+              width="900"
+              height="500"
+              // src={"https://www.youtube.com/embed/" + params + "?autoplay=1"}
+              src={"https://www.youtube.com/embed/" + params}
+              title="YouTube video player"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"
+              allowFullScreen="allowFullScreen"
+              className="rounded-2xl"></iframe>
+          }
+        </div>
+        <div>
+          <LiveComment />
+        </div>
       </div>
       <div className="mt-5 pb-5">
         <h1 className="text-xl font-medium ">Comments:</h1>
