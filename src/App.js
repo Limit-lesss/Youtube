@@ -13,11 +13,11 @@ const Watch = lazy(() => import("./components/WatchPage"));
 function App() {
   return (
     <div>
-      <ScrollRestoration
+      {/* <ScrollRestoration
         getKey={(location) => {
           return location.pathname;
         }}
-      />
+      /> */}
       <Head />
       <Outlet />
     </div>

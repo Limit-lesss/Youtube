@@ -3,7 +3,7 @@ import React from "react";
 const BodyShimmer = () => {
   return (
     <div className="grid grid-cols-4 pt-20 gap-10  pr-5">
-      {Array(100)
+      {Array(30)
         .fill(0)
         .map((e, index) => (
           <div key={index}>

@@ -1,6 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import MainContainer from "./MainContainer";
 import SideBar from "./SideBar";
+import { useSelector } from "react-redux";
 // import useVideo from "../utils/useVideo";
 // import { Outlet, ScrollRestoration } from "react-router-dom";
 // import { useDispatch } from "react-redux";
