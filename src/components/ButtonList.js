@@ -1,11 +1,33 @@
 import React from "react";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { BUTTON_LIST, YOUTUBE_VIDEOS_API } from "../utils/constants";
 
 const ButtonList = () => {
   const [leftArrowDisable, setLeftArrowDisable] = useState(false);
   const [rightArrowDisable, setRightArrowDisable] = useState(true);
   const elementRef = useRef(null);
+  useEffect(() => {
+    const handleElementScroll = () => {
+      if (
+        elementRef.current.scrollLeft + elementRef.current.clientWidth ===
+        elementRef.current.clientWidth
+      ) {
+        setLeftArrowDisable(false);
+      } else if (
+        elementRef.current.scrollLeft + elementRef.current.clientWidth ===
+        elementRef.current.scrollWidth
+      ) {
+        setRightArrowDisable(false);
+      } else {
+        setLeftArrowDisable(true);
+        setRightArrowDisable(true);
+      }
+    };
+    elementRef.current?.addEventListener("scroll", handleElementScroll);
+    return () => {
+      elementRef.current?.removeEventListener("scroll", handleElementScroll);
+    };
+  }, []);
   function handleHorizantalScroll(element, speed, distance, step) {
     let scrollAmount = 0;
     const sliderId = setInterval(() => {
@@ -28,7 +50,7 @@ const ButtonList = () => {
     }, speed);
   }
   return (
-    <div className="h-20 bg-white  fixed -mt-2 w-11/12 pr-20 z-10">
+    <div className="h-20 bg-white   fixed -mt-2 w-11/12 pr-20 z-10">
       {leftArrowDisable && (
         <div className="w-14 h-14 backdrop-blur-3xl absolute top-3 shadow-[10px_-18px_10px_20px_#ffffff] bg-white ">
           <span
@@ -45,9 +67,13 @@ const ButtonList = () => {
           </span>
         </div>
       )}
-      <div className="flex mt-5  overflow-hidden" ref={elementRef}>
+      <div
+        className="flex items-center   overflow-x-scroll no-scrollbar py-5"
+        ref={elementRef}>
         {BUTTON_LIST?.map((e, index) => (
-          <button className="h-10 whitespace-nowrap px-4 mx-2 bg-slate-200 rounded-md" key={index}>
+          <button
+            className="h-10 whitespace-nowrap px-4 mx-2 bg-slate-200 rounded-md"
+            key={index}>
             {e}
           </button>
         ))}

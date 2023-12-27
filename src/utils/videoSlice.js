@@ -4,21 +4,27 @@ const videoSlice = createSlice({
   name: "video",
   initialState: {
     videoList: [],
+    searchVideoList: [],
+    nextPage: "",
     pageToken: "",
   },
   reducers: {
     addVideo: (state, action) => {
-      // console.log("one");
-      let video = [...state.videoList, ...action.payload];
-      state.videoList = [
-        ...new Map(video.map((item) => [item["id"], item])).values(),
-      ];
-      // console.log(state.videoList);
+      state.videoList = [...state.videoList, ...action.payload];
+    },
+    addSearchVideo: (state, action) => {
+      const video = [...state.searchVideoList, ...action.payload] ;
+      state.searchVideoList = [...new Map(video.map(item =>
+        [item["etag"], item])).values()];
     },
     addPageToken: (state, action) => {
       state.pageToken = action.payload;
     },
+    addNextPage: (state, action) => {
+      state.nextPage = action.payload;
+    },
   },
 });
-export const { addVideo, addPageToken } = videoSlice.actions;
+export const { addVideo, addPageToken, addNextPage, addSearchVideo } =
+  videoSlice.actions;
 export default videoSlice.reducer;

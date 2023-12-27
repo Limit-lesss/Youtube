@@ -18,8 +18,21 @@ export const YOUTUBE_VIDEOS_API =
   "https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=12&regionCode=IN&key=" +
   process.env.REACT_APP_GOOGLE_API_KEY;
 
+export const YOUTUBE_CHANNEL_URL =
+  "https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&key=" +
+  process.env.REACT_APP_GOOGLE_API_KEY_CHANNEL +
+  "&id=";
+
 export const YOUTUBE_SEARCH_API =
-  "http://suggestqueries.google.com/complete/search?client=firefox&ds=yt&q=";
+  "https://corsproxy.org/?" +
+  encodeURIComponent(
+    "https://suggestqueries.google.com/complete/search?client=firefox&ds=yt&q="
+  );
+
+export const VIDEO_DATA_URL =
+  "https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&key=" +
+  process.env.REACT_APP_GOOGLE_API_KEY_VIDEO +
+  "&id=";
 
 export const commentData = [
   {
@@ -125,3 +138,18 @@ export const commentData = [
     replies: [],
   },
 ];
+
+export const LIVE_CHAT_COUNT = 100;
+export const COMMENT_DATA_URL =
+  "https://www.googleapis.com/youtube/v3/commentThreads?part=snippet%2Creplies&maxResults=50&textFormat=plainText&order=relevance&key=" +
+  process.env.REACT_APP_GOOGLE_API_KEY_COMMENT +
+  "&videoId=";
+
+export const REPLY_DATA_URL =
+  "https://www.googleapis.com/youtube/v3/comments?part=snippet&textFormat=plainText&moderationStatus=heldForReview&maxResults=10&key=" +
+  process.env.REACT_APP_GOOGLE_API_KEY_COMMENT_REPLY +
+  "&parentId=";
+
+export const SEARCH_RESULT_URL =
+  "https://youtube.googleapis.com/youtube/v3/search?part=snippet&relevanceLanguage=hi&reasonCode=IN&type=video&maxResults=25&videoDuration=medium&key=" +
+  process.env.REACT_APP_GOOGLE_API_KEY_COMMENT + "&q=";

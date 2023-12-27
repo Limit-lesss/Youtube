@@ -3,15 +3,18 @@ import YoutubeLogo from "../assets/pngwing.com.png";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleMenu } from "../utils/appSlice";
 import ShowMenu from "./FullMinuList";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { YOUTUBE_SEARCH_API } from "../utils/constants";
 import { cachesResults } from "../utils/searchSlice";
-// import useSuggestion from "../utils/useSuggestion";
+import {addSearch} from "../utils/searchHistory"
 
 const Head = () => {
   const [searchText, setSearchText] = useState("");
   const [suggData, setSuggData] = useState([]);
   const [showSugg, setShowSugg] = useState(false);
+  let navigate = useNavigate();
+  const dispatch = useDispatch();
+  const searchHistory = useSelector(store => store.searchHistory.history);
   function disableScroll() {
     const scrollLeft = document.documentElement.scrollLeft;
     const scrollTop = document.documentElement.scrollTop;
@@ -22,7 +25,6 @@ const Head = () => {
   function enableScroll() {
     window.onscroll = function () {};
   }
-  const dispatch = useDispatch();
   const handleToggleMenu = () => {
     dispatch(toggleMenu());
   };
@@ -38,17 +40,21 @@ const Head = () => {
   }, [searchText]);
 
   async function getData(text) {
-    const response = await fetch(YOUTUBE_SEARCH_API + text);
-    const data = await response.json();
-    dispatch(cachesResults({ [searchText]: data[1] }));
-    setSuggData(data[1]);
+    try {
+      const response = await fetch(YOUTUBE_SEARCH_API + text);
+      const data = await response.json();
+      dispatch(cachesResults({ [searchText]: data[1] }));
+      setSuggData(data[1]);
+    } catch (error) {
+      console.log(error);
+    }
   }
   const isMenuOpen = useSelector((store) => store.App.isMenuOpen);
   return (
     <div>
       <ShowMenu />
       {isMenuOpen ? disableScroll() : enableScroll()}
-      <div className="border py-3  flex justify-between fixed w-screen bg-white z-20 ">
+      <div className=" py-3  flex justify-between fixed w-screen bg-white z-20 ">
         <div className="flex w-1/5  ml-1 items-center ">
           <span
             className="hover:bg-slate-300 w-12 h-12 rounded-full mx-4 flex items-center justify-center hover:cursor-pointer"
@@ -60,7 +66,7 @@ const Head = () => {
               alt="menu"
             />
           </span>
-          <Link to={"/Youtube"} >
+          <Link to={"/Youtube"}>
             <img
               src={YoutubeLogo}
               alt="youtube"
@@ -91,8 +97,10 @@ const Head = () => {
                     key={index}
                     className="flex items-center w-full hover:bg-slate-300 py-1 cursor-default"
                     onMouseDown={(event) => {
-                      event.preventDefault();
+                      // event.preventDefault();
+                      dispatch(addSearch(e));
                       setSearchText(e);
+                      navigate("/Youtube/results?search_query=" + e);
                     }}>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"

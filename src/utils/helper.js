@@ -196,3 +196,99 @@ const randomComments = [
 export const generateRandomMessage = () => {
   return randomComments[Math.floor(Math.random() * randomComments.length)];
 };
+
+export const duration = (contentDetails) => {
+  let duration = contentDetails;
+  duration = duration.replace("PT", "");
+  let H = duration.slice(
+    0,
+    duration.indexOf("H") === -1 ? 0 : duration?.indexOf("H")
+  );
+  let M = duration.slice(
+    duration.indexOf("H") + 1,
+    duration.indexOf("M") === -1 ? 0 : duration.indexOf("M")
+  );
+  let S = duration.slice(duration.indexOf("M") + 1, duration.indexOf("S"));
+  if (M.length === 1) {
+    M = "0" + M;
+  }
+  if (S.length === 1) {
+    S = "0" + S;
+  }
+  if (S.length === 0) {
+    S = "00" + S;
+  }
+  if (M.length === 0) {
+    M = "00" + M;
+  }
+  return H ? H + ":" + M + ":" + S : M + ":" + S;
+};
+
+export const views = (count) => {
+  const viewCount = count;
+  let views;
+  if (viewCount?.length > 7) {
+    views = Math.round(parseInt(viewCount) / 1000000);
+    return (views += "M");
+  } else if (viewCount?.length > 6) {
+    views = (parseInt(viewCount) / 1000000).toFixed(1);
+    return (views += "M");
+  } else if (viewCount?.length > 3) {
+    views = (parseInt(viewCount) / 1000).toFixed(1);
+    return (views += "K");
+  } else {
+    return count;
+  }
+};
+
+export const findTimeDiff = (date) => {
+  const startTime = new Date(date);
+  const endTime = new Date();
+
+  const timeDifference = endTime - startTime;
+
+  const seconds = Math.floor(timeDifference / 1000);
+  const minutes = Math.floor(seconds / 60);
+  const hours = Math.floor(minutes / 60);
+  const days = Math.floor(hours / 24);
+  const weeks = Math.floor(days / 7);
+
+  if (weeks === 0) {
+    if (days === 0)
+      return hours === 1 ? hours + " hour ago " : hours + " hours ago";
+    else if (hours === 0) {
+      return minutes === 1 ? minutes + " minute ago" : minutes + " minutes ago";
+    } else if (minutes === 0) {
+      return seconds === 1 ? seconds + " second ago" : seconds + " seconds ago";
+    } else {
+      return days === 1 ? days + " day ago " : days + " days ago";
+    }
+  } else {
+    return weeks === 1 ? weeks + " week ago " : weeks + " weeks ago";
+  }
+};
+
+export const subscribers = (count) => {
+  let subs;
+  if (count?.length > 6) {
+    subs = parseInt(count) / 1000000;
+    return (subs = subs.toFixed(2) + "M");
+  } else if (count?.length === 6) {
+    subs = parseInt(count) / 1000;
+    return (subs = subs + "K");
+  } else if (count?.length > 3) {
+    subs = parseInt(count) / 1000;
+    return (subs = subs.toFixed(2) + "K");
+  } else return count;
+};
+
+export const likes = (count) => {
+  let subs;
+  if (count > 1000000) {
+    subs = count / 1000000;
+    return (subs = subs.toFixed(2) + "M");
+  } else if (count > 1000) {
+    subs = count / 1000;
+    return (subs = subs.toFixed(2) + "K");
+  } else return count;
+};

@@ -8,6 +8,10 @@ import {
 } from "react-router-dom";
 // import Watch from "./components/WatchPage";
 import MainContainer from "./components/MainContainer";
+import Demo from "./components/Demo";
+import SearchResultVideo from "./components/SearchResultVideo";
+import VideoContainer from "./components/VideoContainer";
+import SearchReasultPage from "./components/SearchReasultPage";
 const Watch = lazy(() => import("./components/WatchPage"));
 
 function App() {
@@ -23,7 +27,6 @@ function App() {
     </div>
   );
 }
-
 export const appRouter = createBrowserRouter([
   {
     path: "/Youtube",
@@ -32,6 +35,22 @@ export const appRouter = createBrowserRouter([
       {
         path: "/Youtube",
         element: <Body />,
+        children: [
+          {
+            path: "",
+            element: <MainContainer />,
+            children: [
+              {
+                path: "",
+                element: <VideoContainer />,
+              },
+              {
+                path: "results",
+                element: <SearchReasultPage/>,
+              },
+            ],
+          },
+        ],
       },
       {
         path: "/Youtube/watch",
@@ -43,6 +62,10 @@ export const appRouter = createBrowserRouter([
             <Watch />
           </Suspense>
         ),
+      },
+      {
+        path: "/Youtube/demo",
+        element: <Demo />,
       },
     ],
   },

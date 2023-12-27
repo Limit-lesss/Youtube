@@ -29,14 +29,21 @@ const VideoContainer = () => {
   }, []);
 
   async function getYoutubeData(nextPage) {
-    const response = await fetch(YOUTUBE_VIDEOS_API + "&pageToken=" + nextPage);
-    const data = await response.json();
-    dispatch(addVideo(data?.items));
-    if (data.nextPageToken) {
-      dispatch(addPageToken(data.nextPageToken));
-    } else {
-      console.log("No more pages available.");
-      setShowLoading(false);
+    try {
+      const response = await fetch(
+        YOUTUBE_VIDEOS_API + "&pageToken=" + nextPage
+      );
+      const data = await response.json();
+      dispatch(addVideo(data?.items));
+      if (data.nextPageToken) {
+        dispatch(addPageToken(data.nextPageToken));
+      } else {
+        console.log("No more pages available.");
+        window.removeEventListener("scroll", handleScroll);
+        setShowLoading(false);
+      }
+    } catch (error) {
+      console.log(error);
     }
   }
   useEffect(() => {
@@ -63,31 +70,28 @@ const VideoContainer = () => {
   return videoList.length === 0 ? (
     <BodyShimmer />
   ) : (
-    // <></>
-    <div className="">
-      <div className="grid grid-cols-4 pt-20 gap-2  pr-5 relative">
-        {/* <AdVideoCard/> */}
-        {videoList?.map((e, index) => (
-          <Link
-            to={"/Youtube/watch?v=" + e?.id}
-            key={e?.id}
-            onClick={(e) => scrollRestorationHandle()}>
-            <VideoCard {...e} />
-          </Link>
-        ))}
-        {showLoading && (
-          <div className="text-center absolute -bottom-8 left-2/4">
-            <img
-              width="30"
-              height="30"
-              src="https://img.icons8.com/ios-glyphs/30/synchronize.png"
-              alt="synchronize"
-              className="animate-spin "
-            />
-            <div className="text-lg font-semibold text-sky-800">Loading</div>
-          </div>
-        )}
-      </div>
+    <div className="grid grid-cols-4 pt-20 gap-2  pr-5 relative">
+      {/* <AdVideoCard/> */}
+      {videoList?.map((e, index) => (
+        <Link
+          to={"/Youtube/watch?v=" + e?.id}
+          key={e?.id}
+          onClick={(e) => scrollRestorationHandle()}>
+          <VideoCard {...e} />
+        </Link>
+      ))}
+      {showLoading && (
+        <div className="text-center absolute -bottom-8 left-2/4">
+          <img
+            width="30"
+            height="30"
+            src="https://img.icons8.com/ios-glyphs/30/synchronize.png"
+            alt="synchronize"
+            className="animate-spin "
+          />
+          <div className="text-lg font-semibold text-sky-800">Loading</div>
+        </div>
+      )}
     </div>
   );
 };
