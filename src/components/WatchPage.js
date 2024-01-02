@@ -131,7 +131,7 @@ const WatchPage = () => {
             </div>
           </div>
         </div>
-        <div>{/* <LiveComment /> */}</div>
+        <div><LiveComment /></div>
       </div>
       <div className="mt-5 pb-5 w-[900px]">
         <h1 className="text-xl font-semibold ">
