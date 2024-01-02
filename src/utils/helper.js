@@ -89,7 +89,7 @@ const nameList = [
   "Zara Khan",
 ];
 export function generateRandomName() {
-  return nameList[Math.floor(Math.random() * nameList.length)];
+  return nameList[Math.floor(Math.random() * nameList?.length)];
 }
 
 const randomComments = [
@@ -194,7 +194,7 @@ const randomComments = [
 ];
 
 export const generateRandomMessage = () => {
-  return randomComments[Math.floor(Math.random() * randomComments.length)];
+  return randomComments[Math.floor(Math.random() * randomComments?.length)];
 };
 
 export const duration = (contentDetails) => {
@@ -209,16 +209,16 @@ export const duration = (contentDetails) => {
     duration.indexOf("M") === -1 ? 0 : duration.indexOf("M")
   );
   let S = duration.slice(duration.indexOf("M") + 1, duration.indexOf("S"));
-  if (M.length === 1) {
+  if (M?.length === 1) {
     M = "0" + M;
   }
-  if (S.length === 1) {
+  if (S?.length === 1) {
     S = "0" + S;
   }
-  if (S.length === 0) {
+  if (S?.length === 0) {
     S = "00" + S;
   }
-  if (M.length === 0) {
+  if (M?.length === 0) {
     M = "00" + M;
   }
   return H ? H + ":" + M + ":" + S : M + ":" + S;

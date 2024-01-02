@@ -23,7 +23,7 @@ const VideoContainer = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (videoList.length === 0) {
+    if (videoList?.length === 0) {
       getYoutubeData("");
     }
   }, []);
@@ -67,7 +67,7 @@ const VideoContainer = () => {
     dispatch(scrollTo({ scrollTop, scrollLeft }));
   };
 
-  return videoList.length === 0 ? (
+  return videoList?.length === 0 ? (
     <BodyShimmer />
   ) : (
     <div className="grid grid-cols-4 pt-20 gap-2  pr-5 relative">

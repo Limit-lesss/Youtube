@@ -117,7 +117,7 @@ const Head = () => {
                 ))}
               </div>
             )}
-            {searchText.length > 0 && (
+            {searchText?.length > 0 && (
               <span
                 className="absolute top-0 right-0 text-xl font-semibold hover:bg-slate-400 rounded-full w-11 h-11 flex justify-center items-center hover:bg-opacity-50 cursor-pointer text-slate-600"
                 onClick={(e) => setSearchText("")}>

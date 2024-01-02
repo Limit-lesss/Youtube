@@ -17,7 +17,7 @@ const SearchReasultPage = () => {
   const pageToken = useSelector((store) => store.video.nextPage);
 
   useEffect(() => {
-    if (searchVideo.length === 0) {
+    if (searchVideo?.length === 0) {
       getSearchVideo("");
     }
   }, []);
